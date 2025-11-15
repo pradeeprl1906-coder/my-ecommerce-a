@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CITMART — Demo E‑Commerce Portal</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="https://via.placeholder.com/40/ffffff/000000?text=C" alt="logo" style="border-radius:8px">
+      <div>
+        <h1>CITMART</h1>
+        <div style="font-size:12px"></div>
+      </div>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#home" data-nav>Home</a></li>
+        <li><a href="#products" data-nav>Products</a></li>
+        <li><a href="#contact" data-nav>Contact Us</a></li>
+        <li><a href="#about" data-nav>About Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <div id="welcomeMsg" class="small"></div>
+      <button class="btn outline" id="ordersBtn">Orders</button>
+      <button class="btn outline" id="wishlistBtn">Wishlist <span id="wishCount" class="badge" style="margin-left:8px">0</span></button>
+      <button class="btn outline" id="registerBtn">Register</button>
+      <button class="btn" id="loginBtn">Login / Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <div class="card categories">
+        <h3>Categories</h3>
+        <ul id="categoryList"></ul>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="card" style="padding:10px;margin-top:6px">
+        <h3>Popular Products</h3>
+        <div id="popularList"></div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="card searchbar">
+        <input id="searchInput" placeholder="Search products, e.g. iPhone, Redmi..." />
+        <select id="sortSel">
+          <option value="default">Sort: Popular</option>
+          <option value="price-asc">Price ↑</option>
+          <option value="price-desc">Price ↓</option>
+        </select>
+      </div>
+
+      <div id="homePage" class="page active">
+        <div class="card">
+          <h2>Popular right now</h2>
+          <div id="popularGrid" class="grid" style="margin-top:12px"></div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="card" id="categorySections"></div>
+      </div>
+
+      <div id="productsPage" class="page">
+        <div class="card">
+          <h2>All Products</h2>
+          <div id="productGrid" class="grid" style="margin-top:12px"></div>
+        </div>
+      </div>
+
+      <div id="wishlistPage" class="page">
+        <div class="card">
+          <h2>Your Wishlist</h2>
+          <div id="wishlistGrid" class="grid" style="margin-top:12px"></div>
+        </div>
+      </div>
+
+      <div id="ordersPage" class="page">
+        <div class="card">
+          <h2>Your Orders</h2>
+          <div id="ordersList"></div>
+        </div>
+      </div>
+
+      <div id="productDetailPage" class="page">
+        <div class="card" id="productDetail"></div>
+      </div>
+
+      <div id="contact" class="page">
+        <div class="card">
+          <h2>Contact / Customer Care</h2>
+          <form id="contactForm">
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <input id="contactName" placeholder="Your name" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e9eef7">
+              <input id="contactEmail" placeholder="Email" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e9eef7">
+            </div>
+            <textarea id="contactMsg" rows="4" placeholder="Message" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e9eef7"></textarea>
+            <div style="margin-top:8px"><button class="btn" type="submit">Send to Customer Care</button></div>
+          </form>
+        </div>
+      </div>
+
+      <div id="about" class="page">
+        <div class="card">
+          <h2>About Us</h2>
+          <p class="small">CITMART — demo e‑commerce portal built as a single-file HTML/CSS/JS app. Features: login/register, wishlist, orders, categories, reviews, contact form and reporting.</p>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    Demo E‑Commerce portal • Built with HTML/CSS/JS • LocalStorage-powered demo
+  </footer>
+
+  <!-- modals -->
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal" id="authModal">
+      <div id="authTabs" style="display:flex;gap:8px;margin-bottom:12px">
+        <button id="showLogin" class="btn outline">Login</button>
+        <button id="showRegister" class="btn outline">Register</button>
+      </div>
+
+      <div id="loginForm">
+        <h3>Login</h3>
+        <input id="loginEmail" placeholder="Email" style="width:100%;padding:8px;margin-bottom:8px;border-radius:6px;border:1px solid #e9eef7">
+        <input id="loginPass" placeholder="Password" type="password" style="width:100%;padding:8px;margin-bottom:8px;border-radius:6px;border:1px solid #e9eef7">
+        <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="doLogin">Login</button></div>
+        <div id="loginErr" class="small" style="color:crimson;margin-top:8px"></div>
+      </div>
+
+      <div id="registerForm" class="hidden">
+        <h3>Register</h3>
+        <input id="regName" placeholder="Full name" style="width:100%;padding:8px;margin-bottom:8px;border-radius:6px;border:1px solid #e9eef7">
+        <input id="regEmail" placeholder="Email" style="width:100%;padding:8px;margin-bottom:8px;border-radius:6px;border:1px solid #e9eef7">
+        <input id="regPass" placeholder="Password (min 6 chars)" type="password" style="width:100%;padding:8px;margin-bottom:8px;border-radius:6px;border:1px solid #e9eef7">
+        <input id="regPass2" placeholder="Confirm password" type="password" style="width:100%;padding:8px;margin-bottom:8px;border-radius:6px;border:1px solid #e9eef7">
+        <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="doRegister">Register</button></div>
+        <div id="regErr" class="small" style="color:crimson;margin-top:8px"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+
+  
+</body>
+</html>
